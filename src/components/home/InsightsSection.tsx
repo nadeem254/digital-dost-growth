@@ -56,18 +56,35 @@ const InsightsSection = () => {
           {blogPosts.map((post, index) => (
             <motion.article
               key={post.title}
-              className="group bg-card rounded-2xl border border-border/50 overflow-hidden card-hover"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group bg-card rounded-2xl border border-border/50 overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300"
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.12, ease: "easeOut" }}
+              whileHover={{ y: -8 }}
             >
-              <div className="h-48 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                <post.icon className="h-16 w-16 text-primary/30" />
-              </div>
+              <motion.div 
+                className="h-48 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.12 + 0.2 }}
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                >
+                  <post.icon className="h-16 w-16 text-primary/30 group-hover:text-primary/50 transition-colors" />
+                </motion.div>
+              </motion.div>
               <div className="p-6">
-                <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium mb-3">
+                <motion.span 
+                  className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium mb-3"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.3, delay: index * 0.12 + 0.3 }}
+                >
                   {post.category}
-                </span>
+                </motion.span>
                 <h3 className="text-lg font-semibold mb-3 group-hover:text-primary transition-colors">
                   {post.title}
                 </h3>

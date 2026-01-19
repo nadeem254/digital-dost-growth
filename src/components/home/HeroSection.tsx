@@ -87,13 +87,17 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             {trustBadges.map((badge, index) => (
-              <div
+              <motion.div
                 key={badge.text}
-                className="flex flex-col items-center gap-2 p-4 rounded-xl bg-card border border-border/50 shadow-sm"
+                className="flex flex-col items-center gap-2 p-4 rounded-xl bg-card border border-border/50 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
               >
                 <badge.icon className="h-6 w-6 text-primary" />
                 <span className="text-sm font-medium text-center">{badge.text}</span>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
