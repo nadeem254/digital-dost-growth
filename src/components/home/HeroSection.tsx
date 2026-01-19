@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Globe, Users, Target, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRef } from "react";
 
 const trustBadges = [
   { icon: Globe, text: "Global Client Support" },
@@ -11,13 +12,48 @@ const trustBadges = [
 ];
 
 const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Different parallax speeds for depth effect
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 250]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const scale1 = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const scale2 = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-background">
-      {/* Background decorations */}
+    <section 
+      ref={sectionRef}
+      className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-background via-muted/30 to-background"
+    >
+      {/* Parallax background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/3 rounded-full blur-3xl" />
+        <motion.div 
+          style={{ y: y1, scale: scale1 }}
+          className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" 
+        />
+        <motion.div 
+          style={{ y: y2, scale: scale2 }}
+          className="absolute bottom-20 left-10 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" 
+        />
+        <motion.div 
+          style={{ y: y3 }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/3 rounded-full blur-3xl" 
+        />
+        {/* Additional floating particles for depth */}
+        <motion.div 
+          style={{ y: useTransform(scrollYProgress, [0, 1], [0, 200]) }}
+          className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/3 rounded-full blur-2xl" 
+        />
+        <motion.div 
+          style={{ y: useTransform(scrollYProgress, [0, 1], [0, 300]) }}
+          className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-accent/5 rounded-full blur-2xl" 
+        />
       </div>
 
       <div className="container-custom relative z-10">
