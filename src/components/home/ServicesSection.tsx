@@ -103,22 +103,33 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              className="group p-6 bg-card rounded-2xl border border-border/50 shadow-sm card-hover"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group p-6 bg-card rounded-2xl border border-border/50 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300"
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+              whileHover={{ y: -8, scale: 1.02 }}
             >
-              <div className={`w-14 h-14 rounded-xl ${service.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}>
+              <motion.div 
+                className={`w-14 h-14 rounded-xl ${service.color} flex items-center justify-center mb-5`}
+                whileHover={{ scale: 1.15, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <service.icon className="h-7 w-7" />
-              </div>
-              <h3 className="text-lg font-semibold mb-3">{service.title}</h3>
+              </motion.div>
+              <h3 className="text-lg font-semibold mb-3 group-hover:text-primary transition-colors">{service.title}</h3>
               <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
               <div className="space-y-2">
-                {service.benefits.map((benefit) => (
-                  <div key={benefit} className="flex items-center gap-2 text-sm">
+                {service.benefits.map((benefit, benefitIndex) => (
+                  <motion.div 
+                    key={benefit} 
+                    className="flex items-center gap-2 text-sm"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.3, delay: index * 0.08 + benefitIndex * 0.05 + 0.3 }}
+                  >
                     <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                     <span className="text-muted-foreground">{benefit}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

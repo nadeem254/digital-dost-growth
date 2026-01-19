@@ -67,16 +67,21 @@ const IndustriesSection = () => {
           {industries.map((industry, index) => (
             <motion.div
               key={industry.name}
-              className="group p-4 bg-card rounded-xl border border-border/50 text-center hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ y: -5 }}
+              className="group p-4 bg-card rounded-xl border border-border/50 text-center hover:border-primary/50 hover:shadow-xl transition-all cursor-pointer"
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: index * 0.04, ease: "easeOut" }}
+              whileHover={{ y: -8, scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors">
+              <motion.div 
+                className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 transition-colors"
+                whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+                transition={{ duration: 0.4 }}
+              >
                 <industry.icon className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-sm font-semibold mb-1">{industry.name}</h3>
+              </motion.div>
+              <h3 className="text-sm font-semibold mb-1 group-hover:text-primary transition-colors">{industry.name}</h3>
               <p className="text-xs text-muted-foreground">{industry.desc}</p>
             </motion.div>
           ))}

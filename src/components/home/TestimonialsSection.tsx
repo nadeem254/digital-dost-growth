@@ -60,28 +60,52 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
-              className="p-8 bg-card rounded-2xl border border-border/50 shadow-sm relative overflow-hidden"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="p-8 bg-card rounded-2xl border border-border/50 shadow-sm relative overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300"
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+              whileHover={{ y: -5 }}
             >
               {/* Quote Icon */}
-              <Quote className="absolute top-6 right-6 h-10 w-10 text-primary/10" />
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.4, delay: index * 0.15 + 0.3 }}
+              >
+                <Quote className="absolute top-6 right-6 h-10 w-10 text-primary/10" />
+              </motion.div>
 
               {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-gold text-gold" />
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.3, delay: index * 0.15 + i * 0.05 + 0.2 }}
+                  >
+                    <Star className="h-5 w-5 fill-gold text-gold" />
+                  </motion.div>
                 ))}
               </div>
 
               {/* Content */}
-              <p className="text-foreground mb-6 relative z-10">
+              <motion.p 
+                className="text-foreground mb-6 relative z-10"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.15 + 0.4 }}
+              >
                 &ldquo;{testimonial.content}&rdquo;
-              </p>
+              </motion.p>
 
               {/* Author */}
-              <div className="flex items-center gap-4">
+              <motion.div 
+                className="flex items-center gap-4"
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.15 + 0.5 }}
+              >
                 <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold">
                   {testimonial.name.charAt(0)}
                 </div>
@@ -89,7 +113,7 @@ const TestimonialsSection = () => {
                   <p className="font-semibold">{testimonial.name}</p>
                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

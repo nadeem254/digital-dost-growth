@@ -66,9 +66,13 @@ const ContactSection = () => {
             </div>
 
             <div className="space-y-6">
-              <a
+              <motion.a
                 href="tel:+918866724780"
-                className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+                className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted hover:shadow-md transition-all duration-300"
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                whileHover={{ x: 5, scale: 1.02 }}
               >
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Phone className="h-6 w-6 text-primary" />
@@ -77,11 +81,15 @@ const ContactSection = () => {
                   <p className="text-sm text-muted-foreground">Phone</p>
                   <p className="font-semibold">+91 8866724780</p>
                 </div>
-              </a>
+              </motion.a>
 
-              <a
+              <motion.a
                 href="mailto:teamdigitaldost@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+                className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted hover:shadow-md transition-all duration-300"
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                whileHover={{ x: 5, scale: 1.02 }}
               >
                 <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
                   <Mail className="h-6 w-6 text-accent" />
@@ -90,9 +98,14 @@ const ContactSection = () => {
                   <p className="text-sm text-muted-foreground">Email</p>
                   <p className="font-semibold">teamdigitaldost@gmail.com</p>
                 </div>
-              </a>
+              </motion.a>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/50">
+              <motion.div 
+                className="flex items-center gap-4 p-4 rounded-xl bg-muted/50"
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
                 <div className="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center">
                   <MapPin className="h-6 w-6 text-secondary" />
                 </div>
@@ -100,7 +113,7 @@ const ContactSection = () => {
                   <p className="text-sm text-muted-foreground">Location</p>
                   <p className="font-semibold">Serving Clients Globally</p>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* WhatsApp CTA */}
